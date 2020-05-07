@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "067408e0bf4e240316c1ccf377d07ac7",
+    "revision": "e5d67ce5c719800cbfd9b60e1f94262d",
     "url": "/jitsi-poc/index.html"
   },
   {
-    "revision": "8e969a89b96061e8a244",
+    "revision": "890f07cd7a7c8e731206",
     "url": "/jitsi-poc/static/css/main.ff4752a2.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/jitsi-poc/static/js/2.f60d16ef.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8e969a89b96061e8a244",
-    "url": "/jitsi-poc/static/js/main.398f701d.chunk.js"
+    "revision": "890f07cd7a7c8e731206",
+    "url": "/jitsi-poc/static/js/main.2520d50b.chunk.js"
   },
   {
     "revision": "f196fd0b42d83fd1c724",
