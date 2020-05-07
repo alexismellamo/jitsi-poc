@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/jitsi-poc/static/css/main.ff4752a2.chunk.css",
+    "main.js": "/jitsi-poc/static/js/main.cee4d246.chunk.js",
+    "main.js.map": "/jitsi-poc/static/js/main.cee4d246.chunk.js.map",
+    "runtime-main.js": "/jitsi-poc/static/js/runtime-main.858fc8fa.js",
+    "runtime-main.js.map": "/jitsi-poc/static/js/runtime-main.858fc8fa.js.map",
+    "static/js/2.f60d16ef.chunk.js": "/jitsi-poc/static/js/2.f60d16ef.chunk.js",
+    "static/js/2.f60d16ef.chunk.js.map": "/jitsi-poc/static/js/2.f60d16ef.chunk.js.map",
+    "index.html": "/jitsi-poc/index.html",
+    "precache-manifest.2b897f79a62546ff41d7495a414d892c.js": "/jitsi-poc/precache-manifest.2b897f79a62546ff41d7495a414d892c.js",
+    "service-worker.js": "/jitsi-poc/service-worker.js",
+    "static/css/main.ff4752a2.chunk.css.map": "/jitsi-poc/static/css/main.ff4752a2.chunk.css.map",
+    "static/js/2.f60d16ef.chunk.js.LICENSE.txt": "/jitsi-poc/static/js/2.f60d16ef.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.858fc8fa.js",
+    "static/js/2.f60d16ef.chunk.js",
+    "static/css/main.ff4752a2.chunk.css",
+    "static/js/main.cee4d246.chunk.js"
+  ]
+}
