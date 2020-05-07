@@ -8,7 +8,6 @@ function isEmpty(obj) {
 }
 
 function App() {
-  const [localTracks, setLocalTracks] = useState([]);
   const [sharingScreen, setShringScreen] = useState(false);
   const [muted, setMuted] = useState(false);
   const [video, setVideo] = useState(true);
@@ -17,6 +16,7 @@ function App() {
   const remoteVideosRef = useRef();
   const webrtcRef = useRef();
   const mainVideoRef = useRef();
+  const someoneSharingScreenRef = useRef(false);
 
   useEffect(() => {
     const webrtc = new SimpleWebRtc({
@@ -27,22 +27,29 @@ function App() {
     webrtcRef.current = webrtc;
 
     webrtc.on('readyToCall', () => {
-      webrtc.joinRoom('lexisroom');
+      webrtc.joinRoom('thisismyroompleasedonotfuckingenter');
     });
 
-    webrtc.on('mute', () => {
-      console.log('mute uwu');
+    webrtc.on('mute', ({ name, isLocal }) => {
+      if (!isLocal) return;
       setMuted(true);
     });
 
-    webrtc.on('unmute', () => {
-      console.log('unmute uwu');
+    webrtc.on('unmute', ({ name, isLocal }) => {
       setMuted(false);
     });
 
-    webrtc.on('mainVideo', ({ track }) => {
+    webrtc.on('sharingScreen', ({ track }) => {
+      if (!track) return;
+
+      someoneSharingScreenRef.current = true;
       mainVideoRef.current.srcObject = track.stream;
-      setMainVideoIsLocal(track.isLocal());
+      setMainVideoIsLocal(false);
+    });
+
+    webrtc.on('stopSharingScreen', () => {
+      someoneSharingScreenRef.current = false;
+      mainVideoRef.current.srcObject = null;
     });
 
     return () => {
@@ -51,15 +58,13 @@ function App() {
   }, []);
 
   function handleShareScheen() {
-    if (localTracks[1]) {
-      localTracks[1].dispose();
+    if (sharingScreen) {
+      webrtcRef.current.stopShareScreen();
+      setShringScreen(false);
+    } else {
+      webrtcRef.current.shareScreen();
+      setShringScreen(true);
     }
-    JitsiMeetJS.createLocalTracks({
-      devices: [sharingScreen ? 'video' : 'desktop'],
-    }).then(([track]) => {
-      setLocalTracks((localTracks) => [localTracks[0], track]);
-      setShringScreen((sharingScreen) => !sharingScreen);
-    });
   }
 
   async function handleMute() {
@@ -72,7 +77,6 @@ function App() {
 
   async function handleToggleVideo() {
     const video = await webrtcRef.current.toggleVideo();
-    console.log(video);
 
     setVideo(!video);
   }
@@ -119,7 +123,6 @@ function App() {
           playsInline
           className={mainVideoIsLocal ? 'mirror' : ''}
         />
-        }
       </div>
     </div>
   );

@@ -155,6 +155,7 @@ class SimpleWebRtc {
       this.emit(event, {
         name: type,
         type,
+        isLocal: track.isLocal(),
       });
     });
     room.on(
@@ -215,6 +216,13 @@ class SimpleWebRtc {
   onRemoteTrack = (track) => {
     if (track.isLocal()) {
       return;
+    }
+
+    if (track.videoType === 'desktop') {
+      this.emit('sharingScreen', { track });
+      return;
+    } else {
+      this.emit('stopSharingScreen', { track });
     }
 
     const participant = track.getParticipantId();
@@ -331,10 +339,45 @@ class SimpleWebRtc {
       .flat()
       .find((track) => console.log(track) || track?.getType() === 'video');
 
-    console.log(someRemoteTrack, 'lexiiiiodfjnioejriofjeirojfioerjfiojr');
+    const mainTrack = someRemoteTrack || this.localTracks[1];
 
     this.emit('mainVideo', {
-      track: someRemoteTrack || this.localTracks[1],
+      track: mainTrack,
+    });
+  };
+
+  shareScreen = () => {
+    const videoTrack = this.localTracks[1];
+    if (videoTrack) {
+      videoTrack.dispose();
+      this.localTracks.pop();
+    }
+
+    JitsiMeetJS.createLocalTracks({
+      devices: ['desktop'],
+    }).then(([track]) => {
+      this.localTracks[1] = track;
+      this.room.addTrack(track);
+      this.emit('sharingScreen', { track });
+    });
+  };
+
+  stopShareScreen = () => {
+    const videoTrack = this.localTracks[1];
+    if (videoTrack) {
+      videoTrack.dispose();
+      this.localTracks.pop();
+    }
+
+    JitsiMeetJS.createLocalTracks({
+      devices: ['video'],
+    }).then(([track]) => {
+      const video = document.querySelector('#localVideo');
+      track.attach(video);
+      this.localTracks[1] = track;
+      this.room.addTrack(track);
+      this.emit('stopSharingScreen', { track });
+      this.chooseMainVideo();
     });
   };
 }

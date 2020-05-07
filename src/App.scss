@@ -18,16 +18,24 @@
   }
 
   .remote-videos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16.375rem, 0.5fr));
+    grid-gap: 10px;
     position: fixed;
     right: 20px;
+    left: 20px;
     top: 20px;
     min-height: 100vh;
     z-index: 1;
 
     video {
-      height: 80px;
+      height: 200px;
       display: block;
       margin-bottom: 10px;
+    }
+
+    audio {
+      display: none;
     }
   }
 
