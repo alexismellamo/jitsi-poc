@@ -1,17 +1,68 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { SimpleWebRtc } from './jitsi-config';
 import './App.scss';
-const { JitsiMeetJS } = window;
 
-function isEmpty(obj) {
-  return Object.keys(obj).length === 0;
+function Modal({ active, onSubmit }) {
+  const [name, setName] = useState('');
+  const [roomName, setRoomName] = useState(
+    window.location.pathname.split('/')[1] || ''
+  );
+
+  return (
+    <div className={`modal ${active ? 'is-active' : ''}`}>
+      <div className="modal-background"></div>
+      <div className="modal-content">
+        <form
+          className="join-modal"
+          onSubmit={(ev) => {
+            ev.preventDefault();
+            onSubmit({ name, roomName });
+          }}
+        >
+          <h1 className="title is-1">Enter room</h1>
+          <div className="field">
+            <label className="label">Name</label>
+            <div className="control">
+              <input
+                className="input is-primary"
+                type="text"
+                placeholder="John Smith"
+                onChange={(ev) => setName(ev.target.value)}
+                value={name}
+              />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Room name</label>
+            <div className="control">
+              <input
+                className="input is-primary"
+                type="text"
+                placeholder="Johnsroom"
+                onChange={(ev) => setRoomName(ev.target.value)}
+                value={roomName}
+              />
+            </div>
+          </div>
+          <div className="field is-grouped">
+            <div className="control">
+              <button className="button is-link">Enter room</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 function App() {
+  const [isReady, setIsReady] = useState(false);
   const [sharingScreen, setShringScreen] = useState(false);
   const [muted, setMuted] = useState(false);
   const [video, setVideo] = useState(true);
   const [mainVideoIsLocal, setMainVideoIsLocal] = useState(true);
+  const [name, setName] = useState('');
+  const [roomName, setRoomName] = useState('');
   const localVideosRef = useRef();
   const remoteVideosRef = useRef();
   const webrtcRef = useRef();
@@ -19,6 +70,7 @@ function App() {
   const someoneSharingScreenRef = useRef(false);
 
   useEffect(() => {
+    if (!isReady) return;
     const webrtc = new SimpleWebRtc({
       localVideoEl: localVideosRef.current,
       remoteVideosEl: remoteVideosRef.current,
@@ -27,7 +79,8 @@ function App() {
     webrtcRef.current = webrtc;
 
     webrtc.on('readyToCall', () => {
-      webrtc.joinRoom('thisismyroompleasedonotfuckingenter');
+      console.log('jajaja');
+      webrtc.joinRoom(roomName);
     });
 
     webrtc.on('mute', ({ name, isLocal }) => {
@@ -55,7 +108,7 @@ function App() {
     return () => {
       webrtc.unload();
     };
-  }, []);
+  }, [isReady]);
 
   function handleShareScheen() {
     if (sharingScreen) {
@@ -81,8 +134,25 @@ function App() {
     setVideo(!video);
   }
 
+  function handleEnterConf({ name, roomName }) {
+    const roomNameFormatted = roomName
+      .toLowerCase()
+      .replace(/\s/g, '')
+      .replace(/[\W_]+/g, '');
+
+    window.history.pushState(
+      null,
+      'roomNameFormatted',
+      `/${roomNameFormatted}`
+    );
+    setRoomName(roomNameFormatted);
+    setName(name);
+    setIsReady(true);
+  }
+
   return (
     <div className="App">
+      <Modal active={!isReady} onSubmit={handleEnterConf} />
       <div ref={localVideosRef} className="local-videos"></div>
       <div ref={remoteVideosRef} className="remote-videos"></div>
 
