@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/jitsi-poc/static/css/main.ff4752a2.chunk.css",
-    "main.js": "/jitsi-poc/static/js/main.2520d50b.chunk.js",
-    "main.js.map": "/jitsi-poc/static/js/main.2520d50b.chunk.js.map",
+    "main.js": "/jitsi-poc/static/js/main.68a9535c.chunk.js",
+    "main.js.map": "/jitsi-poc/static/js/main.68a9535c.chunk.js.map",
     "runtime-main.js": "/jitsi-poc/static/js/runtime-main.858fc8fa.js",
     "runtime-main.js.map": "/jitsi-poc/static/js/runtime-main.858fc8fa.js.map",
     "static/js/2.f60d16ef.chunk.js": "/jitsi-poc/static/js/2.f60d16ef.chunk.js",
     "static/js/2.f60d16ef.chunk.js.map": "/jitsi-poc/static/js/2.f60d16ef.chunk.js.map",
     "index.html": "/jitsi-poc/index.html",
-    "precache-manifest.3d0105b984bc34eb17a374488b9d55ed.js": "/jitsi-poc/precache-manifest.3d0105b984bc34eb17a374488b9d55ed.js",
+    "precache-manifest.3ae044fac80203a7904eebaf1f20b754.js": "/jitsi-poc/precache-manifest.3ae044fac80203a7904eebaf1f20b754.js",
     "service-worker.js": "/jitsi-poc/service-worker.js",
     "static/css/main.ff4752a2.chunk.css.map": "/jitsi-poc/static/css/main.ff4752a2.chunk.css.map",
     "static/js/2.f60d16ef.chunk.js.LICENSE.txt": "/jitsi-poc/static/js/2.f60d16ef.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.858fc8fa.js",
     "static/js/2.f60d16ef.chunk.js",
     "static/css/main.ff4752a2.chunk.css",
-    "static/js/main.2520d50b.chunk.js"
+    "static/js/main.68a9535c.chunk.js"
   ]
 }
