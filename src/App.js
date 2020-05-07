@@ -2,11 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { SimpleWebRtc } from './jitsi-config';
 import './App.scss';
 
+const urlParams = new URLSearchParams(window.location.search);
+const roomNameDefault = urlParams.get('room');
 function Modal({ active, onSubmit }) {
   const [name, setName] = useState('');
-  const [roomName, setRoomName] = useState(
-    window.location.pathname.split('/')[1] || ''
-  );
+  const [roomName, setRoomName] = useState(roomNameDefault || '');
 
   return (
     <div className={`modal ${active ? 'is-active' : ''}`}>
@@ -143,7 +143,7 @@ function App() {
     window.history.pushState(
       null,
       'roomNameFormatted',
-      `/${roomNameFormatted}`
+      `${window.location.pathname}/?room=${roomNameFormatted}`
     );
     setRoomName(roomNameFormatted);
     setName(name);
