@@ -142,8 +142,8 @@ function App() {
 
     window.history.pushState(
       null,
-      'roomNameFormatted',
-      `${window.location.pathname}/?room=${roomNameFormatted}`
+      roomNameFormatted,
+      `${window.location.pathname}?room=${roomNameFormatted}`
     );
     setRoomName(roomNameFormatted);
     setName(name);
